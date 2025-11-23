@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SOCIALS</title>
+<link rel='stylesheet' href='/stylesheets/card-index.css' />
+<%- include('modules/links.ejs') %>
+</head>
+
+<body> 
+<%- include('modules/navbar.ejs') %>
+<section class="intro">
+<img src="/images/image/titulo.PNG">
+<h1>Directorio del multijuego</h1>
+
+</section>
+<br>
+<div class="base">
+  
+  <h2>JUGADORES</h2>
+
+  <section class="cards cont-users row">
+  <% thisUser.forEach((elem)=>{ %>
+  <div class="card text-center">
+  <img src="/images/usuarios/<%= elem.image %>" class="card-img-top" alt="Skin del jugador/a">
+  <div class="card-body">
+  <h4 class="card-text pb-2"><%= elem.name %> <%= elem.last_name %></h4>
+  <a href="/users/user/<%= elem.id_user %>">Mi perfil</a>
+  </div>
+  </div>
+  <% }) %>
+  </section>
+  <%- include('modules/footer.ejs') %>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SOCIALS</title>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<%- include('modules/links.ejs') %>
+</head>
+
+<body> 
+<%- include('modules/navbar.ejs') %>
+
+<section class="ppal-form">
+  <div>
+<h2 class="text-center p-2">EDITA TUS DATOS</h2>
+</div>  
+<div class="form">
+
+<form
+action="/users/editUser/<%= userEdited.id_user %>"
+method="post"
+>
+<p class="msg-allert"><%= message %></p>
+<div>
+<label for="disabledTextInput" class="form-label">Nombre:</label>
+<input 
+type="text" 
+name="name"
+class="form-control" 
+placeholder="Enter your name"
+value="<%= userEdited.name %>">
+</div>
+<div>
+<label for="disabledTextInput" class="form-label">Apellidos: </label>
+<input
+type="text" 
+name="last_name"
+class="form-control" 
+placeholder="Enter your last name"
+value="<%= userEdited.last_name %>">
+</div>
+<div>
+<label for="disabledTextInput" class="form-label">Preferencias de juego: </label>
+<input
+type="text" 
+name="preferences"
+class="form-control" 
+placeholder="Enter your preferences"
+value="<%= userEdited.preferences %>">
+</div>
+<div>
+<label for="disabledSelect" class="form-label">E-mail:</label>
+<input name="email"
+type="email"
+class="form-select"
+placeholder="Enter your e-mail"
+value="<%= userEdited.email %>">
+</div>
+
+
+  <div class="btn d-flex justify-content-evenly">
+<button class="my-btn mt-3" type="submit">Enviar</button>
+<button class="my-btn mt-3" type="reset">Borrar</button>
+<button class="my-btn mt-3" onclick="window.location.href='/users/<%= userEdited.id_user %>'">Volver</button>
+</div>
+</form>
+</div>
+</section>
+
+
+
+
+<%- include('modules/footer.ejs') %>
+</body>
+</html>
+
