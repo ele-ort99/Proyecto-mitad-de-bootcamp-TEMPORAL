@@ -18,12 +18,12 @@ res.render("register", {message: "Debes cumplimentar todos los campos"});
 res.render('register', {message:"Es obligatorio usar skin"})
 }else{
 
-//encriptar o hashear la contraseña para guardarla hasheada
+//encriptar la contraseña
 bcrypt.hash(password, 10, (err, hash)=>{
 if(err){
 throw err
 }else{
-//guardo en db con la contraseña encriptada
+//guardar en db con la contraseña encriptada
 let sql = `INSERT INTO user (name, last_name, email, password, preferences, image) 
 VALUES (?,?,?,?,?,?)`  
 let values = [name, last_name, email, hash, preferences, req.file.filename]
@@ -46,7 +46,7 @@ res.redirect('/')
 
 
 addUser = (req, res) => {
-let sql = 'SELECT * FROM user'
+let sql = 'SELECT * FROM user WHERE user_deleted = 0'
 
 connection.query(sql, (err, result)=>{
 if(err){
@@ -103,6 +103,7 @@ res.render("user", {thisUser: result[0], game: resultGames})
         const {id_user} = req.params;
         if(!name||!last_name||!email||!preferences){
             let datosTemp = {
+            id_user: id_user,
             name: name,
             last_name: last_name,
             email: email,
@@ -125,7 +126,7 @@ res.render("user", {thisUser: result[0], game: resultGames})
     } 
 
 
-    elimTotalUser = (req, res) => {
+    deletedTotalUser = (req, res) => {
       const {id_user} = req.params
       let sql = 'DELETE FROM user WHERE id_user = ?'
       let values = [id_user]
@@ -138,33 +139,18 @@ res.render("user", {thisUser: result[0], game: resultGames})
       })
     }
 
-openAddGame = (req, res) => {
-  const {userId} = req.params;
-  res.render('addGame', { message: "", userId: userId });
-}
-
-
-addGame = (req, res) => {
-
-const {userId} = req.params;
-const {name, review, stars, platform, year_publication} = req.body
-if(!userId||!name||!review||!stars||!platform||!year_publication){
-res.render("addGame", {message:"Debes cumplimentar todo el formulario", userId: userId})
-}else if(!req.file){
-res.render('addGame', {message:"Es obligatorio poner imagen", userId: userId})
-}
-else{
-let sql = 'INSERT INTO game (id_user, name, review, stars, platform, year_publication, image) VALUES (?,?,?,?,?,?,?)'
-let values = [userId, name, review, stars, platform, year_publication, req.file.filename]
-connection.query(sql, values, (err, result)=>{
-if(err){
-    throw err;
-}else{
-    res.redirect(`/users/user/${userId}`)
-}
-})
-}
-}
+    deletedUser = (req, res) => {
+      const {id_user} = req.params
+      let sql = 'UPDATE user SET user_deleted = 1 WHERE id_user = ?'
+      let values = [id_user]
+      connection.query(sql, values, (err, result)=>{
+        if(err){
+          throw err
+        }else{
+          res.redirect(`/`)
+        }
+      })
+    }
 
 }
 

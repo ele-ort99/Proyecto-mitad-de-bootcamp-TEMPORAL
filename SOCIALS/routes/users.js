@@ -14,12 +14,12 @@ router.get('/user/:id', usersController.openUser);
 router.get('/editUser/:id_user', usersController.openEditUser)
 router.post('/editUser/:id_user', usersController.editUser)
 
-// Añadir juego
-router.get('/openAddGame/:userId', usersController.openAddGame);
-router.post('/addGame/:userId', uploadImg("juegos"), usersController.addGame);
+//BORRADO
+//Borrar usuario
+router.get('/deletedTotalUser/:id_user', usersController.deletedTotalUser)
 
-//Borrar jugador
-router.get('/elimTotalUser/:id_user', usersController.elimTotalUser)
+//eliminar usuario de vistas
+router.get('/deletedUser/:id_user', usersController.deletedUser)
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const connection = require('../config/db')
 
 class IndexController{
   openHome = (req, res)=>{
-    let sql = 'SELECT * FROM user'
+    let sql = 'SELECT * FROM user WHERE user_deleted = 0'
 
     connection.query(sql, (err, result)=>{
       if(err){

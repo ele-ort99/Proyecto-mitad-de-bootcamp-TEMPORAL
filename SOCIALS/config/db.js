@@ -7,9 +7,9 @@ const connection = mysql.createConnection({
 });
 
 //conexion de prueba
-connection.connect((errorcito)=>{
-    if(errorcito){
-        console.log('Error de conexión', errorcito.stack);
+connection.connect((err)=>{
+    if(err){
+        console.log('Error de conexión', err.stack);
     }else{
         console.log('Conexión correcta con la db');   
     }
